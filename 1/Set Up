@@ -1,0 +1,9 @@
+# Install Solana CLI
+sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+
+# Install Anchor Framework
+cargo install --git https://github.com/project-serum/anchor anchor-cli --locked
+
+# Verify installations
+solana --version
+anchor --version
