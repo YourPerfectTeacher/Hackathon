@@ -1,0 +1,27 @@
+#[program]
+pub mod cigr_stablecoin {
+    // ... other code ...
+
+    pub fn borrow_against_cigr(ctx: Context<BorrowAgainstCigr>, amount: u64) -> ProgramResult {
+        // Call Solend's program to borrow funds
+        let solend_program = ctx.accounts.solend_program.clone();
+        let instruction = solend_instruction::borrow(
+            &solend_program.key,
+            &ctx.accounts.borrower.key,
+            &ctx.accounts.cigr_account.key,
+            amount,
+        )?;
+        invoke(&instruction, &[ctx.accounts.borrower.clone(), ctx.accounts.cigr_account.clone()])?;
+        Ok(())
+    }
+}
+
+#[derive(Accounts)]
+pub struct BorrowAgainstCigr<'info> {
+    #[account(mut)]
+    pub borrower: Signer<'info>,
+    #[account(mut)]
+    pub cigr_account: AccountInfo<'info>,
+    pub solend_program: AccountInfo<'info>,
+    pub token_program: AccountInfo<'info>,
+}
