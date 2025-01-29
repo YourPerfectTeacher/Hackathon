@@ -1,0 +1,57 @@
+use anchor_lang::prelude::*;
+
+declare_id!("CIGRStablecoin1111111111111111111111111111111");
+
+#[program]
+pub mod cigr_stablecoin {
+    use super::*;
+
+    pub fn initialize(ctx: Context<Initialize>) -> ProgramResult {
+        // Initialize state variables
+        Ok(())
+    }
+
+    pub fn mint(ctx: Context<Mint>, amount: u64) -> ProgramResult {
+        // Mint tokens
+        Ok(())
+    }
+
+    pub fn burn(ctx: Context<Burn>, amount: u64) -> ProgramResult {
+        // Burn tokens
+        Ok(())
+    }
+
+    pub fn rebase(ctx: Context<Rebase>) -> ProgramResult {
+        // Adjust supply based on oracle price
+        Ok(())
+    }
+}
+
+#[derive(Accounts)]
+pub struct Initialize {}
+
+#[derive(Accounts)]
+pub struct Mint<'info> {
+    #[account(mut)]
+    pub mint_authority: Signer<'info>,
+    #[account(mut)]
+    pub account: AccountInfo<'info>,
+    pub token_program: AccountInfo<'info>,
+}
+
+#[derive(Accounts)]
+pub struct Burn<'info> {
+    #[account(mut)]
+    pub burner: Signer<'info>,
+    #[account(mut)]
+    pub account: AccountInfo<'info>,
+    pub token_program: AccountInfo<'info>,
+}
+
+#[derive(Accounts)]
+pub struct Rebase<'info> {
+    #[account(mut)]
+    pub rebase_authority: Signer<'info>,
+    pub oracle: AccountInfo<'info>,
+    pub token_program: AccountInfo<'info>,
+}
