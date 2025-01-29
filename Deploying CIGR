@@ -1,0 +1,4 @@
+anchor build
+solana airdrop 2 # Airdrop some SOL to pay for transactions
+anchor deploy
+anchor test
